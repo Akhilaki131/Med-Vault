@@ -4,10 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import com.hospital.controller.LoginResponse;
-import com.hospital.database.DBConnectivity;
-import com.hospital.database.PatientDetailResponse;
-import com.hospital.database.PatientDetails;
-import com.hospital.database.UserDetails;
+import com.hospital.database.*;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.SerializationConfig;
@@ -61,6 +58,21 @@ public class LoginImpl {
         return mapper.readValue(someJsonString, PatientDetailResponse.class);
     }
 
+    @GET
+    @Path(value = "/doctorDetails")
+    @Produces(MediaType.APPLICATION_JSON)
+    public DoctorDetails getDoctorDetails(
+            @QueryParam("doctorName") String username) throws SQLException, IOException {
+
+        DoctorDetails details = new DoctorDetails();
+        details = connectivity.getDoctorDetails(username);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationConfig.Feature.FAIL_ON_EMPTY_BEANS, false);
+        String someJsonString = mapper.writeValueAsString(details);
+        connectivity.conn.close();
+        return mapper.readValue(someJsonString, DoctorDetails.class);
+    }
+
     @POST
     @Path(value = "/set/PatientDetails")
     @Produces(MediaType.APPLICATION_JSON)
@@ -70,7 +82,47 @@ public class LoginImpl {
         connectivity.setPatientDetails(details.getUsername(), details.getFirstName(),
                 details.getLastName(), details.getAge(), details.getPhone(),
                 details.getDisease(), details.getMedications());
- 
+
     }
+
+    @POST
+    @Path(value = "/signup")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public LoginResponse signup(UserDetails details) throws SQLException {
+
+        connectivity.insertLoginDetails(details.getuserName(), details.getPassword(),
+                details.getEmail());
+        LoginResponse response = new LoginResponse();
+        response.setCode("success");
+        return response;
+
+    }
+
+    @POST
+    @Path(value = "/set/doctorDetails")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public LoginResponse setDoctorDetails(DoctorDetails details) throws SQLException {
+
+        connectivity.setDoctorDetails(details.getUsername(), details.getFirstName(), details.getLastName(),
+                details.getSpeciality());
+        LoginResponse response = new LoginResponse();
+        response.setCode("success");
+        return response;
+
+    }
+
+    @POST
+    @Path(value = "/update/PatientDetails")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void updatePatientDetails(PatientDetails details) throws SQLException {
+
+        connectivity.updatePatientDetails(details.getUsername(), details.getPhone(),
+                details.getDisease(), details.getMedications());
+
+    }
+
 
 }

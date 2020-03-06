@@ -1,11 +1,18 @@
 package com.hospital.database;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+@XmlRootElement
 public class UserDetails {
-
+    @XmlElement
     private String username;
-
+    @XmlElement
     private String password;
-
+    @XmlElement
     private String email;
 
     public String getuserName() {

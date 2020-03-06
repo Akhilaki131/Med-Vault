@@ -5,7 +5,11 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Random;
 
 public class DBConnectivity {
     public static Connection conn = null;
@@ -42,24 +46,29 @@ public class DBConnectivity {
     }
 
     public void insertLoginDetails(String username, String password,
-                                   String email, Calendar cal) throws SQLException {
+                                   String email) throws SQLException {
         setup();
+        Date date = Calendar.getInstance().getTime();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd hh:mm:ss");
+        String strDate = dateFormat.format(date);
+        Random random = new Random();
+        int id = random.nextInt(100);
         UserDetails details = new UserDetails(username, password, email);
-        String InsertData = "INSERT INTO user VALUES(" + username + ","
-                + password + "," + email + ","
-                + Calendar.getInstance().toString() + ")";
+        String InsertData = "INSERT INTO hospital.user VALUES( '" + username + "','"
+                + password + "','" + email + "','"
+                + strDate + "','" + id + "')";
 
-        ResultSet rs = stmt.executeQuery(InsertData);
+		stmt.executeUpdate(InsertData);
         System.out.println(details);
-        conn.close();
+//        conn.close();
 
     }
 
     public PatientDetails getPatientDetails(String username) throws SQLException {
         PatientDetails details = null;
         setup();
-        ResultSet rs = stmt.executeQuery("Select * from hospital.patient where username='"+username + "'");
-        while(rs.next()) {
+        ResultSet rs = stmt.executeQuery("Select * from hospital.patient where username='" + username + "'");
+        while (rs.next()) {
             details = new PatientDetails(rs.getString(1), rs.getString(2),
                     rs.getString(3), rs.getInt(4), rs.getInt(5),
                     rs.getString(6), rs.getString(7));
@@ -80,14 +89,25 @@ public class DBConnectivity {
         conn.close();
     }
 
+    public void setDoctorDetails(String username, String firstName, String lastName,
+                                   String speciality)
+            throws SQLException {
+        setup();
+        String InsertData = "INSERT INTO hospital.doctor VALUES('" + username + "','"
+                + firstName + "','" + lastName + "','" + speciality + "')";
+
+        int rs = stmt.executeUpdate(InsertData);
+        conn.close();
+    }
+
     public void updatePatientDetails(String username, long phone,
                                      String disease, String medications) throws SQLException {
         setup();
-        String updateStatement = "UPDATE patient SET" + "phone =" + phone + ","
-                + "disease =" + disease + "," + "medications =" + medications
-                + "WHERE username=" + username;
+        String updateStatement = "UPDATE hospital.patient SET " + "phone ='" + phone + "',"
+                + "disease ='" + disease + "'," + "medications ='" + medications
+                + "' WHERE username='" + username + "'";
 
-        ResultSet rs = stmt.executeQuery(updateStatement);
+        int rs = stmt.executeUpdate(updateStatement);
         conn.close();
 
     }

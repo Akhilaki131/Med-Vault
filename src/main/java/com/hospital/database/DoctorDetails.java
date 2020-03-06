@@ -1,10 +1,20 @@
 package com.hospital.database;
 
-public class DoctorDetails {
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+@XmlRootElement
+public class DoctorDetails {
+    @XmlElement
     private String username;
+    @XmlElement
     private String firstName;
+    @XmlElement
     private String lastName;
+    @XmlElement
     private String Speciality;
 
     public DoctorDetails(String username, String firstName, String lastName,
@@ -14,6 +24,9 @@ public class DoctorDetails {
         this.firstName = firstName;
         this.lastName = lastName;
         Speciality = speciality;
+    }
+
+    public DoctorDetails() {
     }
 
     public String getUsername() {
