@@ -1,39 +1,20 @@
 package com.hospital.database;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
+public class PatientDetailResponse {
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-
-@JsonIgnoreProperties(ignoreUnknown = true)
-@XmlRootElement
-public class PatientDetails {
-
-    @XmlElement
     private String Username;
-    @XmlElement
-    private String FirstName;
-    @XmlElement
-    private String LastName;
-    @XmlElement
-    private int Age;
-    @XmlElement
-    private int Phone;
-    @XmlElement
-    private String Disease;
-    @XmlElement
-    private String Medications;
 
-    public PatientDetails(String username, String firstName, String lastName,
-                          int age, int phone, String disease, String medications) {
-        Username = username;
-        FirstName = firstName;
-        LastName = lastName;
-        Age = age;
-        Phone = phone;
-        Disease = disease;
-        Medications = medications;
-    }
+    private String FirstName;
+
+    private String LastName;
+
+    private int Age;
+
+    private int Phone;
+
+    private String Disease;
+
+    private String Medications;
 
     public String getUsername() {
         return Username;
@@ -91,7 +72,8 @@ public class PatientDetails {
         Medications = medications;
     }
 
-    public PatientDetails() {
+    public PatientDetailResponse() {
     }
+
 
 }

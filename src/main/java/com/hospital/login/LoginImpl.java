@@ -1,8 +1,14 @@
 package com.hospital.login;
 
+import java.io.IOException;
+import java.sql.SQLException;
+
 import com.hospital.controller.LoginResponse;
 import com.hospital.database.DBConnectivity;
+import com.hospital.database.PatientDetailResponse;
+import com.hospital.database.PatientDetails;
 import com.hospital.database.UserDetails;
+
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.SerializationConfig;
 
@@ -37,8 +43,34 @@ public class LoginImpl {
         LoginResponse response = new LoginResponse();
         response.setCode("success");
         String someJsonString = mapper.writeValueAsString(response);
-        return mapper.readValue(someJsonString,
-                LoginResponse.class);
+        return mapper.readValue(someJsonString, LoginResponse.class);
+    }
+
+    @GET
+    @Path(value = "/patientDetails")
+    @Produces(MediaType.APPLICATION_JSON)
+    public PatientDetailResponse getPatientDetails(
+            @QueryParam("patientName") String username) throws SQLException, IOException {
+
+        PatientDetails details = new PatientDetails();
+        details = connectivity.getPatientDetails(username);
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.configure(SerializationConfig.Feature.FAIL_ON_EMPTY_BEANS, false);
+        String someJsonString = mapper.writeValueAsString(details);
+        connectivity.conn.close();
+        return mapper.readValue(someJsonString, PatientDetailResponse.class);
+    }
+
+    @POST
+    @Path(value = "/set/PatientDetails")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void setPatientDetails(PatientDetails details) throws SQLException {
+
+        connectivity.setPatientDetails(details.getUsername(), details.getFirstName(),
+                details.getLastName(), details.getAge(), details.getPhone(),
+                details.getDisease(), details.getMedications());
+ 
     }
 
 }
