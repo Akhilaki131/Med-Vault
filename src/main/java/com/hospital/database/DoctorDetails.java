@@ -1,6 +1,8 @@
 package com.hospital.database;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -9,12 +11,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 public class DoctorDetails {
     @XmlElement
+    @JsonBackReference
     private String username;
     @XmlElement
+    @JsonBackReference
     private String firstName;
     @XmlElement
+    @JsonBackReference
     private String lastName;
     @XmlElement
+    @JsonBackReference
     private String Speciality;
 
     public DoctorDetails(String username, String firstName, String lastName,

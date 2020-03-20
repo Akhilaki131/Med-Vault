@@ -55,10 +55,10 @@ public class DBConnectivity {
         int id = random.nextInt(100);
         UserDetails details = new UserDetails(username, password, email);
         String InsertData = "INSERT INTO hospital.user VALUES( '" + username + "','"
-                + password + "','" + email + "','"
+                + email + "','" + password+ "','"
                 + strDate + "','" + id + "')";
 
-		stmt.executeUpdate(InsertData);
+		int i = stmt.executeUpdate(InsertData);
         System.out.println(details);
 //        conn.close();
 
@@ -81,9 +81,9 @@ public class DBConnectivity {
                                   int age, int phone, String disease, String medications)
             throws SQLException {
         setup();
-        String InsertData = "INSERT INTO hospital.patient VALUES(" + username + ","
-                + firstName + "," + lastName + "," + age + "," + phone + ","
-                + disease + "," + medications + ")";
+        String InsertData = "INSERT INTO hospital.patient VALUES('" + username + "','"
+                + firstName + "','" + lastName + "'," + age + "," + phone + ",'"
+                + disease + "','" + medications + "')";
 
         int rs = stmt.executeUpdate(InsertData);
         conn.close();

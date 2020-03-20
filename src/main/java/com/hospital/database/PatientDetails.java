@@ -1,94 +1,110 @@
 package com.hospital.database;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @XmlRootElement
 public class PatientDetails {
 
     @XmlElement
-    private String Username;
+    @JsonIgnore
+    @JsonBackReference
+    private String username;
     @XmlElement
-    private String FirstName;
+    @JsonIgnore
+    @JsonBackReference
+    private String firstname;
     @XmlElement
-    private String LastName;
+    @JsonIgnore
+    @JsonBackReference
+    private String lastname;
     @XmlElement
-    private int Age;
+    @JsonIgnore
+    @JsonBackReference
+    private int age;
     @XmlElement
-    private int Phone;
+    @JsonIgnore
+    @JsonBackReference
+    private int phone;
     @XmlElement
-    private String Disease;
+    @JsonIgnore
+    @JsonBackReference
+    private String disease;
     @XmlElement
-    private String Medications;
+    @JsonIgnore
+    @JsonBackReference
+    private String medications;
 
-    public PatientDetails(String username, String firstName, String lastName,
+    public PatientDetails(String username, String firstname, String lastname,
                           int age, int phone, String disease, String medications) {
-        Username = username;
-        FirstName = firstName;
-        LastName = lastName;
-        Age = age;
-        Phone = phone;
-        Disease = disease;
-        Medications = medications;
+        this.username = username;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.age = age;
+        this.phone = phone;
+        this.disease = disease;
+        this.medications = medications;
     }
 
     public String getUsername() {
-        return Username;
+        return username;
     }
 
     public void setUsername(String username) {
-        this.Username = username;
+        this.username = username;
     }
 
-    public String getFirstName() {
-        return FirstName;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setFirstName(String firstName) {
-        FirstName = firstName;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
-    public String getLastName() {
-        return LastName;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLastName(String lastName) {
-        LastName = lastName;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public int getAge() {
-        return Age;
+        return age;
     }
 
     public void setAge(int age) {
-        Age = age;
+        this.age = age;
     }
 
     public int getPhone() {
-        return Phone;
+        return phone;
     }
 
     public void setPhone(int phone) {
-        Phone = phone;
+        this.phone = phone;
     }
 
     public String getDisease() {
-        return Disease;
+        return disease;
     }
 
     public void setDisease(String disease) {
-        Disease = disease;
+        this.disease = disease;
     }
 
     public String getMedications() {
-        return Medications;
+        return medications;
     }
 
     public void setMedications(String medications) {
-        Medications = medications;
+        this.medications = medications;
     }
 
     public PatientDetails() {

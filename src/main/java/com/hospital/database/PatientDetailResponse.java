@@ -1,75 +1,80 @@
 package com.hospital.database;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class PatientDetailResponse {
 
-    private String Username;
-
-    private String FirstName;
-
-    private String LastName;
-
-    private int Age;
-
-    private int Phone;
-
-    private String Disease;
-
-    private String Medications;
+   
+    private String username;
+   
+    private String firstname;
+   
+    private String lastname;
+   
+    private int age;
+   
+    private int phone;
+   
+    private String disease;
+   
+    private String medications;
 
     public String getUsername() {
-        return Username;
+        return username;
     }
 
     public void setUsername(String username) {
-        this.Username = username;
+        this.username = username;
     }
 
-    public String getFirstName() {
-        return FirstName;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setFirstName(String firstName) {
-        FirstName = firstName;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
-    public String getLastName() {
-        return LastName;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLastName(String lastName) {
-        LastName = lastName;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public int getAge() {
-        return Age;
+        return age;
     }
 
     public void setAge(int age) {
-        Age = age;
+        this.age = age;
     }
 
     public int getPhone() {
-        return Phone;
+        return phone;
     }
 
     public void setPhone(int phone) {
-        Phone = phone;
+        this.phone = phone;
     }
 
     public String getDisease() {
-        return Disease;
+        return disease;
     }
 
     public void setDisease(String disease) {
-        Disease = disease;
+        this.disease = disease;
     }
 
     public String getMedications() {
-        return Medications;
+        return medications;
     }
 
     public void setMedications(String medications) {
-        Medications = medications;
+        this.medications = medications;
     }
 
     public PatientDetailResponse() {
