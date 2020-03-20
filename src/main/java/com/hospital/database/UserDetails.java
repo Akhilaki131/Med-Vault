@@ -1,11 +1,22 @@
 package com.hospital.database;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+@XmlRootElement
 public class UserDetails {
-
+    @XmlElement
+    @JsonBackReference
     private String username;
-
+    @XmlElement
+    @JsonBackReference
     private String password;
-
+    @XmlElement
+    @JsonBackReference
     private String email;
 
     public String getuserName() {

@@ -1,10 +1,26 @@
 package com.hospital.database;
 
-public class DoctorDetails {
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+@XmlRootElement
+public class DoctorDetails {
+    @XmlElement
+    @JsonBackReference
     private String username;
+    @XmlElement
+    @JsonBackReference
     private String firstName;
+    @XmlElement
+    @JsonBackReference
     private String lastName;
+    @XmlElement
+    @JsonBackReference
     private String Speciality;
 
     public DoctorDetails(String username, String firstName, String lastName,
@@ -14,6 +30,9 @@ public class DoctorDetails {
         this.firstName = firstName;
         this.lastName = lastName;
         Speciality = speciality;
+    }
+
+    public DoctorDetails() {
     }
 
     public String getUsername() {
